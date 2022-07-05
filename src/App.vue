@@ -1,5 +1,7 @@
 <template>
-  <div>你好vue</div>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
