@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 数组方法
+        // forEach()  遍历数组
+        // 语法规范：array.forEach(function(数组当前项的值[, 索引号,数组本身]))
+        var arr = [1,2,3,4,5]
+        arr.forEach(function(item,index,arr) {
+            console.log(item);
+            console.log(index);
+            console.log(arr); //1 0 Array(10),2 1 Array(10),3 2 Array(10)...
+        })
+        var res = 0
+        arr.forEach(function(item) {
+            res += item
+            item
+        })
+        console.log(res);  //55
+        // 只改item的值不改变原数组内容
+        console.log(arr);   //(10) [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        arr.forEach(function(item,index) {
+            arr[index] = 1
+        })
+        console.log(arr); //(10) [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+        var arr1 = [{
+            uname: 'zxy'
+        },{
+            uname: 'zxy'
+        },{
+            uname: 'zxy'
+        }]
+        console.log(arr1);  //zxy
+        arr1.forEach(function(item) {
+            item.uname = '郑秀妍'   //item为地址 地址不可改动,修改地址里的内容能改原数组的值
+        })
+        console.log(arr1);  //郑秀妍
+
+
+        // map()  遍历数组
+        // 语法规范：array.map(function(数组当前项的值[, 索引号,数组本身]))
+        var arr = [1,2,3]
+        // map自身会有一个返回值,返回新的数组,不改变原数组
+        var newArr = arr.map(function(item) {
+            return 1
+        })
+        console.log(newArr);  //(3) [1, 1, 1]
+        console.log(arr);  //(3) [1, 2, 3]
+        // 不写return或者return返回的内容为空新数组的成员为undefined
+        var newArr1 = arr.map(function(item) {
+            item += 1
+            return
+        })
+        console.log(newArr1); //(3) [undefined, undefined, undefined]
+
+        // filter()  筛选数组
+        // 语法规范：array.filter(function(数组当前项的值[, 索引号,数组本身]))
+        var arr = [1,2,3, 4, 5, 6, 7, 8, 9, 10]
+        // filter返回一个新数组，如果return的是真则放进新数组否则不放
+        var newArr = arr.filter(function(citem) {
+            return 1   //return true
+        })
+        console.log(newArr); //[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        var newArr1 = arr.filter(function(item) {
+            return 0   //return false
+        })
+        console.log(newArr1);  //[]
+        var newArr2 = arr.filter(function(item) {
+            return item > 5
+        })
+        console.log(newArr2);  //(5) [6, 7, 8, 9, 10]
+
+        // some()  判断数组里是否存在满足条件的元素,有返回true,无返回false
+        var arr = [10,20,30]
+        var flag = arr.some(item => item === 20)
+        console.log(flag);   //true
+        flag = arr.some(item => item === 5)
+        console.log(flag); //false
+        //只要有一个返回值为true直接终止循环
+        flag = arr.some(item => {
+            console.log(1);
+            return 1
+        })
+        console.log(flag);  //1 true
+
+        // every()  判断数组里的每一项元素是否都满足条件，有一个不满足返回false,全部满足返回true
+        var arr = [10,10,10,10]
+        flag = arr.every(item => item === 10)
+        console.log(flag);  //true
+        var arr = [10,10,20,10]
+        //只要有一个返回值为false直接终止循环
+        flag = arr.every(item => {
+            console.log(1);
+            return item === 10
+        })
+        console.log(flag); //1 1 1 false
+        // 如果是空数组进行判断,some()为false,every()为true
+        var arr = []
+        flag = arr.every(item => {})
+        // 底层原理(可能):flag进入函数赋值为true只要查到为false就终止循环,没有false就返回true,在空数组的循环中因为没进行循环也就遇不到false所以返回true
+        console.log(flag);  //true
+        flag = arr.some(item => {})
+        // 底层原理(可能):flag进入函数赋值为false只要查到为true就终止循环,没有true就返回false,在空数组的循环中因为没进行循环也就遇不到true所以返回false
+        console.log(flag); //false
+
+        // reduce()  返回后汉书累计处理的结果，经常用于求和
+        // 语法规范: arr.reduce(function(累计值，当前元素[,索引号][,源数组]){},起始值)
+        // 如果有起始值就从起始值开始累计,累计值=起始值
+        // 如果没有起始值,则累计值以数组的第一个数组元素作为起始值开始累计
+        // 后面每次遍历就会用后面的数组元素累积到累计值里
+        // 求1-100的和
+        const arr = []
+        for (let i = 1; i <= 100; i++) arr.push(i)
+        console.log(arr.reduce((prev,item) => prev + item))
+
+
+
+        // 字符串方法
+        // trim()  去掉字符串前后的空格
+        var str = '  xi xi  '
+        console.log(str.trim());   //'xi xi'
+
+
+
+        // 对象方法
+        // keys()   获取对象里的属性名
+        // 语法规范：Object.keys(对象名)
+        var obj = {
+            id: 4,
+            pname: "华为",
+            price: 1999,
+        }
+        var objKeys = Object.keys(obj);
+        console.log(objKeys);  //(3) ['id', 'pname', 'price']
+
+        // values()  获取对象里的属性值
+        // 语法规范：Object.values(对象名)
+        var objValues = Object.values(obj)
+        console.log(objValues); //(3) [4, '华为', 1999]
+
+        const obj = {}
+        // defineProperty()   定义对象的新属性或修改对象原有属性
+        // 语法规范：Object.defineProperty(对象名,属性名,描述符(对象))
+        // 通过'对象名.属性名 = 属性值'来添加或修改的属性他们的writable、enumerable、configurable都为true
+        Object.defineProperty(obj,'uname',{
+            value: '稀稀',  //设置属性值
+            writable: false,  // 目标属性值是否可以重写。默认为false 
+            enumerable: false, //目标属性是否可以被遍历(不能被遍历时打印出的属性名是粉色的)。默认为false
+            configurable: true, //目标属性是否可以被删除和再次修改特性(描述符里的属性)。默认为false
+        }) 
+        
+        Object.defineProperty(obj,'uname',{
+            value: 'xixi', //可以修改
+        })
+        obj.uname = 'haha'  //无法修改
+        // Object.defineProperty(obj,'uname',{  //configurable为false时报错  configurable改成true不报错
+        //     value: 'xixi', 
+        //     writable: true,
+        //     enumerable: true,
+        //     configurable: true   
+        // })
+        console.log(obj);  //{id: 4, pname: '华为', price: 1999, uname: '稀稀'}
+        console.log(Object.keys(obj)); //['id', 'pname', 'price']
+    </script>
+</body>
+</html>

@@ -1,6 +1,10 @@
 <template>
   <div class="login-container">
-    <van-nav-bar title="登录" />
+    <van-nav-bar title="登录">
+      <template #left>
+        <van-icon color="#fff" name="cross" @click="$router.back()" />
+      </template>
+    </van-nav-bar>
     <van-form @submit="onSubmit" ref="form">
       <van-field
         v-model="user.mobile"
@@ -86,11 +90,16 @@ export default {
     };
   },
   methods: {
+    // goMy() {
+    //   this.$router.push("./my");
+    // },
     async onSubmit() {
       try {
         const res = await Logins(this.user);
         console.log(res);
+        this.$store.commit("setUser", res.data.data);
         Toast.success("登陆成功");
+        this.$router.push("/my");
       } catch (e) {
         Toast.fail(e?.response?.data?.message || "服务器端错误");
       }

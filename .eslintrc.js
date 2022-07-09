@@ -18,5 +18,6 @@ module.exports = {
     "space-before-function-paren": "off",
     "prettier/prettier": ["error", { endOfLine: "auto" }],
     "vue/multi-word-component-names": "off",
+    "vue/no-mutating-props": "off",
   },
 };

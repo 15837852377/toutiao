@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 基本包装类型：为了方便操作基本数据类型，JavaScript 还提供了三个特殊的引用类型：String、Number和 Boolean。基本包装类型就是把简单数据类型包装成为复杂数据类型，这样基本数据类型就有了属性和方法
+        var str = '稀稀真帅'
+        var len = str.length //经过包装，简单的数据类型也能拥有属性
+        console.log(len); //4
+        //执行步骤
+        //1.先声明一个临时变量，利用new关键字把简单数据类型转换成一个复杂数据类型
+        var temp = new String(str)
+        console.log(temp); //String {'稀稀真帅'}
+        //2.获取这个临时变量的length属性值
+        var len = temp.length
+        //3.把这个临时变置空
+        temp = null
+
+        //字符串不可变：指的是里面的值不可变，虽然看上去可以改变内容，但其实是地址变了，内存中新开辟了一个内存空间
+        // 当重新给字符串变量赋值的时候，变量之前保存的字符串不会被修改，依然在内存中重新给字符串赋值，会重新在内存中开辟空间，这个特点就是字符串的不可变。
+        // 由于字符串的不可变，在大量拼接字符串的时候会有效率问题
+
+        // 根据字符返回位置    let str = srcfgvbhjnrgs   
+        //1.indexOf()：从前往后找，直到找到第一个相同的字符就返回字符的位置，如果找不到就返回-1
+        var add = str.indexOf('真')
+        var add1 = str.indexOf('萧')
+        console.log(add); //2
+        console.log(add1); //-1
+        //2.lastIndexOf()：从后往前找，直到找打第一个相同的字符就返回字符的位置，如果找不到就返回-1
+        var add = str.lastIndexOf('稀')
+        var add1 = str.lastIndexOf('!')
+        console.log(add); //1
+        console.log(add1); //-1
+
+        //indexOf()的参数  通用参数
+        // indexOf('指定字符',fromIndexOf)：'指定字符'为要查找的字符，fromIndexOf为从哪里开始查找
+        var index = str.indexOf('稀')
+        console.log(index); //0
+        console.log(str.indexOf('稀',index + 1)); //1
+
+        //查找字符串"abcoefoxyozzopp"中所有o出现的位置以及次数
+        var Str = 'abcoefoxyozzopp'
+        var index = []
+        var add = 0
+        //查找结果为-1时结束循环
+        while (add !== -1) {
+            //从0的位置开始找'o'
+            add = Str.indexOf('o', add)
+            //如果能找到'o'那add的结果就不是-1，name就执行if里的语句
+            if (add !== -1) {
+                //把'o'的位置也就是add添加到index数组里
+                index.push(add)
+                // 把下一次循环开始的位置往后+1
+                add++
+            }
+        }
+        //打印所有'o'的位置
+        console.log(index);
+        //打印'o'出现的次数
+        console.log(index.length);
+
+        //['red','blue','red','blue','green','pink','red'] 求red出现的位置和次数
+        var Str = ['red','blue','red','blue','green','pink','red']
+        var index = []
+        var num = 0
+        while (num !== -1) {
+            num = Str.indexOf('red',num)
+            if (num !== -1) {
+                index.push(num)
+                num++
+            }
+        }
+        console.log(index);
+        //求出现最多的字符串和次数
+        //先创建一个空的对象 因为查询对象里的属性如果不存在的话返回的值为undefined
+        var obj = {}
+        //遍历数组
+        for (var i = 0; i < Str.length; i++) {
+            //如果数组里的这个元素在obj对象里已经存在了，把它后面的数字+1也就是数组出现的次数+1
+            if (obj[Str[i]]) {
+                obj[Str[i]] += 1
+            }else {
+                obj[Str[i]] = 1 //否则就在这个obj对象里添加数组里相应的属性并赋值1
+            }
+        }
+        console.log(obj); //{red: 3, blue: 2, green: 1, pink: 1}
+        //遍历对象找出出现最多的字符串和次数
+        var str = ''  //出现最多的字符串
+        var max = 0  //出现最多的字符串你的次数
+        for (var k in obj) {
+            if (obj[k] > max) {
+                max = obj[k]
+                str = k
+            }
+        }
+        console.log('出现最多的字符串是' + str + '他出现了' + max) + '次';
+
+
+        //返回指定位置的字符
+        var str = '123456abcdef'
+        //charAt(index)：返回指定位置的字符，index为字符串的索引号
+        var res = str.charAt(6)
+        console.log(res);  //a
+        //charCodeAt(index)：获取指定位置处字符串的ASCII码，index为字符串的索引号
+        var code = str.charCodeAt(6)
+        console.log(code);  //97
+        //str[索引]：获取指定位置处字符(H5和 IE8+支持)
+        console.log(str[0]); //1
+
+        //字符串比较大小是比较的ASCII码的大小，如果是一串字符串那比较的是第一个不同的字符的ASCII码
+
+        //拼接与截取字符串
+        //1.concat(str1,str2……)：连接两个或多个字符串,不改变原来字符串
+        var str = '111'
+        var str1 = str.concat('222') 
+        console.log(str1);   //111222
+        //2.substr(start,length)：从start位置开始(索引号)，取length个字符，不改变原来字符串
+        var res = str1.substr(1,3)
+        console.log(res); //112
+        //3.slice(start,end)：从start开始，截取到end位置(end可以取负数)，end取不到,不改变原字符
+        var res1 = str1.slice(1,3)
+        console.log(res1); //11
+        //4.substring(start,end)：从start开始截取到end的位置，end取不到，end不能取负值
+        var res2 = str1.substring(1,4)
+        console.log(res2); //112
+
+
+        //替换字符串以及转换为数组
+        //1.replace()：被替换的字符串要换成的字符串，不会改变原字符串
+        var str = '123456789'
+        var res = str.replace('456','***')
+        console.log(res); //123***789
+        console.log(str); //123456789
+        //2.split('分隔符')：用分隔符把字符串切分成数组，生成新数组不改变原字符串
+        var str = '123$456$789'
+        var res1 = str.split('$')
+        console.log(res1); //['123', '456', '789']
+    </script>
+</body>
+</html>

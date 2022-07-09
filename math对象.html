@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Math对象不是构造函数，它具有数学常数和函数的属性和方法。跟数学相关的运算（求绝对值，取整、最大值等）可以使用Math中的成员
+        // Math.PI 圆周率
+        // Math.floor() 向下取整
+        // Math.ceil() 向上取整
+        // Math.round() 四舍五入版 就近取整   注意 -3.5   结果是  -3
+        // Math.abs() 绝对值
+        // Math.max()/Math.min() 求最大和最小值 
+        // Math.random() 获取范围在[0,1)内的随机值
+       
+        //取math对象最大值
+        console.log(Math.max(1,2,3)); //3
+        console.log(Math.max(1,2,'稀稀真帅')); //NaN 如果里面有一个参数不能转换成数字会输出NaN
+
+
+        // 利用对象封装自己的数学对象，里面有PI属性，并能获取最大值和最小值
+        var myMath = {
+            PI: 3.141592653589793,
+            max: function () {
+                var max = arguments[0]
+                for(var i = 1; i < arguments.length; i++) {
+                    if(arguments[i]> max) {
+                        max = arguments[i]
+                    }
+                }
+                return max
+            },
+            Min: function () { 
+                var min = arguments[0]
+                for(var i = 1; i < arguments.length; i++) {
+                    if(arguments[i]< min) {
+                    min = arguments[i]
+                    }
+                }
+                return min
+            }
+        }
+
+        // Math的绝对值和三个取整方法
+        // 1.绝对值方法 abs()
+        console.log(Math.abs(-1)); // 1
+        console.log(Math.abs()); // NaN
+        console.log(Math.abs('-3')); // 3  // 隐式转换 把字符串转为数字
+        console.log(Math.abs('红领烬')); // NaN
+
+        // 2.三个取整方法
+        // (1) Math.floor()   地板 向下取整  往最小了取值
+        console.log(Math.floor(1.1)); // 1
+        console.log(Math.floor(1.9999)); // 1
+
+        // (2) Math.ceil()   ceil 天花板 向上取整  往最大了取值
+        console.log(Math.ceil(1.4)); // 2
+        console.log(Math.ceil(1.001)); // 2
+
+        // (3) Math.round()   四舍五入  其他数字都是四舍五入，但是 .5 特殊 它往大了取  
+        console.log(Math.round(3.146)); // 3
+        console.log(Math.round(3.5001)); // 4
+        console.log(Math.round(1.5)); // 2
+        console.log(Math.round(-1.5)); // -1
+        console.log(Math.round(-1.6)); // -2
+
+        //Math的随机数方法
+        // 1.Math对象随机数方法   random() 返回一个随机的小数  0 <= x < 1
+        // 2. 这个方法里面不跟参数
+        // 3. 代码验证
+        console.log(Math.random()) //小数→[0,1)
+
+        // 随机整数 min<= x <= max
+        function getRandom(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min //含最大值，含最小值    [0,1)   5 20    16    [0,16)   [0,15]  [5,20]
+            // max-min+1求的是随机数的长度,+min是从哪个数开始取 
+        }
+        console.log(getRandom(1, 10))
+
+        // 随机点名
+        var arr = ['张三', '李四', '王五', '孙六', '赵七', '刘八', '钱九']
+        // console.log(arr[0]);
+        console.log(arr[getRandom(0, arr.length - 1)])
+
+        //随机生成一个1-10的整数，让用户猜
+        var num = getRandom(1,10)
+        var guess = prompt('请输入您要猜的数字')
+        while(num != guess) {
+            if (guess > num) {
+                alert('您猜大了')
+            }else {
+                alert('您猜小了')
+            }
+            guess = prompt('请输入您要猜的数字')
+        }
+        alert('您猜对了！')
+
+        //要求用户猜1-50之间的数字，但只有十次机会
+        var num = getRandom(1,50)
+        var guess = prompt('请输入您要猜的数字')
+        var res = false
+        for (var i = 1; i < 10; i++) {
+            if (guess > num) {
+                alert('您猜大了')
+                guess = prompt('请输入您要猜的数字')
+            }else if (guess < num) {
+                alert('您猜小了')
+                guess = prompt('请输入您要猜的数字')
+            }else {
+                res = true
+                break
+            }
+        }
+        if (res) {
+            alert('您猜对了！')
+        }else {
+            alert('您没机会了！')
+        }
+    </script>
+</body>
+</html>

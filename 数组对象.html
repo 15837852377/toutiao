@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1.字面量创建数组
+        var arr = []
+        //2.new关键字创建数组
+        var arr = new Array()
+
+        //检测是否是数组：
+        // 1.instanceof 运算符(A instanceof B:判断A是否是B)  判断的结果为布尔值
+        var num = 10
+        console.log(arr instanceof Array); //true
+        console.log(num instanceof Array); //false
+        //2.Array.isArray()  专门判断是否为数组的运算符
+        console.log(Array.isArray(arr)); //true
+        console.log(Array.isArray(num)); //false
+
+        //添加/删除数组元素
+        // 1.push(参数1……)：末尾添加一个或多个元素并返回新数组长度
+        var res = arr.push(1,23) 
+        console.log(res); //2
+        console.log(arr); //[1,23]
+
+        // 2.pop()：在末尾删除一个元素，返回被删除的元素
+        res = arr.pop() 
+        console.log(res); //23
+        console.log(arr); //[1]
+
+        // 3.unshift(参数1……)：在开头添加一个多多个元素，并返回新数组的长度
+        res = arr.unshift(4,5,6)
+        console.log(res); //4
+        console.log(arr);  //[4,5,6,1]
+        // 4.shift()：删除开头的一个元素并返回被删除的元素
+        res = arr.shift()
+        console.log(res); //4
+        console.log(arr); //[5,6,1]
+
+        //有一个包含工资的数组[1500, 1200, 2000, 2100, 1800]，要求把数组中工资超过2000的删除，剩余的放到新数组里面
+        var arr = [1500, 1200, 2000, 2100, 1800,2200]
+        var newarr = []
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] <= 2000) {
+                newarr.push(arr[i])
+            }
+        }
+        console.log(newarr);
+
+        //数组排序
+        //1.reverse()：颠倒数组中元素的顺序并返回新数组
+        var Arr = [1,2,3,4,5,6]    
+        var newArr = Arr.reverse()
+        console.log(newArr);  //[6,5,4,3,2,1]
+        console.log(Arr);  //[6,5,4,3,2,1]
+
+
+        //2.sort()：对数组中的元素进行排序并返回新数组
+        var newArr1 = Arr.sort(function(a,b) {return a - b}) //升序
+        console.log(newArr1);  //[1,2,3,4,5,6]
+        console.log(Arr);  //[1,2,3,4,5,6]
+        var newArr1 = Arr.sort(function(a,b) {return b - a}) //降序
+        console.log(newArr1);  //[6,5,4,3,2,1]
+        console.log(Arr);  //[6,5,4,3,2,1]
+        
+
+        //数组索引方法
+        //1.indexOf()：从前向后找，找到第一个符合条件的就返回该元素的索引，如果找不到就返回-1
+        var arr = [1,2,3,4,5,6,7,8,9]
+        var index = arr.indexOf(5)
+        var index1 = arr.indexOf(10)
+        console.log(index);  //4
+        console.log(index1);  //-1
+        //2.lastIndexOf()：从后往前找，找到第一个符合条件的元素返回该元素的索引，如果找不到就返回-1
+        var index = arr.lastIndexOf(6)
+        var index1 = arr.lastIndexOf(15)
+        console.log(index);  //5
+        console.log(index1);  //-1
+
+        //有一个数组['c', 'a', 'z', 'a', 'x', 'a', 'x', 'c', 'b'] 要求去除数组中重复的元素
+        var arr = ['c', 'a', 'z', 'a', 'x', 'a', 'x', 'c', 'b'] 
+        var newArr = []
+        for (var i = 0; i < arr.length; i++) {
+            if (newArr.indexOf(arr[i]) === -1) { //判断新的数组里是否已经有这个元素了，有就不复制
+                newArr.push(arr[i])
+            }
+        }
+        console.log(newArr);
+
+
+        //将数组转换成字符串
+        //1.toString()：把数组转换成字符串，用逗号分隔每一项返回字符串但并不改变原数组
+        var str = arr.toString()
+        console.log(arr); //['c', 'a', 'z', 'a', 'x', 'a', 'x', 'c', 'b']
+        console.log(str); //c,a,z,a,x,a,x,c,b
+        //2.join('分隔符')：把数组用指定分隔符(默认逗号)隔开返回字符串但不改变原数组
+        var str1 = arr.join('')
+        console.log(arr); // ['c', 'a', 'z', 'a', 'x', 'a', 'x', 'c', 'b']
+        console.log(str1); //c-a-z-a-x-a-x-c-b
+
+
+        //其他方法
+        // 1.concat()：连接两个或多个数组，不影响原数组返回一个新数组
+        var arr1 = [1,2,3]
+        var arr2 = [4,5,6]
+        var arr3 = [7,8,9]
+        var res = arr1.concat(arr2,arr3)  
+        console.log(res); //[1, 2, 3, 4, 5, 6, 7, 8, 9]
+        console.log(arr1); //[1, 2, 3]
+        console.log(arr2); // [4, 5, 6]
+        console.log(arr3); //[7, 8, 9]
+        //2.slice()：数组截取slice(begin,end)，返回被截取项目的数组  取得到begin取不到end
+        var res1 = res.slice(2,8)
+        var res2 = res.slice(3) //第二个参数不写的时候默认截取到末尾
+        var res3 = res.slice(1,-2) //第二个参数可以是负数，负数表示从后往前数-1是最后一个元素
+        console.log(res1); //[3, 4, 5, 6, 7, 8]
+        console.log(res2); // [4, 5, 6, 7, 8, 9] 
+        console.log(res3); //[2, 3, 4, 5, 6, 7]
+        //3.splice()：数组删除splice(第几个开始，要删除几个)，返回被删除的 项目组成的新数组并改变原数组
+        var res4 = res.splice(1,3,'111','222','333')
+        console.log(res4); //[2, 3,4]
+        console.log(res); //[1, 5,'111','222','333', 6, 7, 8, 9]
+    </script>
+</body>
+</html>
